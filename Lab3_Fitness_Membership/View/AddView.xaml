@@ -1,0 +1,86 @@
+﻿<Window x:Class="Lab3_Fitness_Membership.View.AddView"
+        x:Name="AddViewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab3_Fitness_Membership.View"
+        mc:Ignorable="d"
+        Title="Add Membership" Height="200" Width="300"
+        DataContext="{Binding Source={StaticResource Locator}, Path=AddViewModel}">
+    <!--The View's different styles that can be applied to object types-->
+    <Window.Resources>
+        <Style x:Key="vertCenterStyle" TargetType="{x:Type Label}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="buttonFormatStyle" TargetType="{x:Type Button}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="50"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <!--Creating the rows and columns for the grid-->
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Content="First Name:"/>
+        <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Content="Last Name:"/>
+        <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Content="Email:"/>
+        <!--Binding to AddViewModel's FirstTextBox-->
+        <TextBox x:Name="FirstTextBox"
+                 Text="{Binding FirstTextBox, UpdateSourceTrigger=PropertyChanged}" 
+                 Grid.Row="0" 
+                 Grid.Column="1" 
+                 Height="20"/>
+        <!--Binding to AddViewModel's LastTextBox-->
+        <TextBox x:Name="LastTextBox" 
+                 Text="{Binding LastTextBox, UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Row="1" 
+                 Grid.Column="1" 
+                 Height="20"/>
+        <!--Binding to AddViewModel's EmailTextBox-->
+        <TextBox x:Name="EmailTextBox"
+                 Text="{Binding EmailTextBox, UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Row="2" 
+                 Grid.Column="1" 
+                 Height="20"/>
+        <Grid Grid.Row="3" 
+              Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <!--Binding the button to AddViewModel's SaveCloseCommand-->
+            <Button Name="SaveMemberButton" 
+                    Grid.Column="0" 
+                    Style="{StaticResource buttonFormatStyle}" 
+                    Content="Save"
+                    Command="{Binding SaveCloseCommand, Mode=OneWay}"
+                    CommandParameter="{Binding ElementName=AddViewWindow}">
+                <!--Additional actions given for button clicking-->
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click" >
+                        <i:InvokeCommandAction Command="{Binding SaveCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <!--Cancel is bound to the CloseCommand-->
+            <Button Name="CancelMemberButton"
+                    Grid.Column="1" 
+                    Style="{StaticResource buttonFormatStyle}" 
+                    Content="Cancel"
+                    Command="{Binding CloseCommand, Mode=OneWay}"
+                    CommandParameter="{Binding ElementName=AddViewWindow}"/>
+        </Grid>
+    </Grid>
+</Window>

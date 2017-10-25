@@ -1,0 +1,103 @@
+﻿<Window x:Class="Lab3_Fitness_Membership.MainWindow"
+        x:Name="MembershipListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab3_Fitness_Membership"
+        xmlns:Command="http://www.galasoft.ch/mvvmlight"
+        mc:Ignorable="d"
+        Title="Membership List" Height="350" Width="525"
+        DataContext="{Binding MainViewModel, Source={StaticResource Locator}}">
+    <!--DataContext is what gives the XML tags something to look for when they bind to objects...-->
+    <!--not specified by a class. The place they look for the class is the LOCATOR.-->
+    <Grid Background="Green">
+        <Grid Margin="20,30,20,30" 
+              Background="White">
+            <!--Grid Specs-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="120"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <!--List of Names Label-->
+            <Border Grid.Column="0" 
+                    Grid.Row="0" 
+                    Height="35" 
+                    VerticalAlignment="Top"
+                    Background="LightGreen">
+                <Label Grid.Column="0" 
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Content="Member Contact Information"/>
+            </Border>
+            <!--List of Names-->
+            <ListBox x:Name="listBox" 
+                     ItemsSource="{Binding MemberList}" 
+                     SelectedItem="{Binding SelectedMember, UpdateSourceTrigger=PropertyChanged}" 
+                     Grid.Column="0" 
+                     Grid.Row="1">
+                <!--This interaction works when you click on any part of the listbox, not just a listboxitem.-->
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding EditCommand}"
+                             CommandParameter="{Binding ElementName=listBox,Path=SelectedItem}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} {1} - {2}">
+                                        <Binding Path="FirstName"/>
+                                        <Binding Path="LastName"/>
+                                        <Binding Path="Email"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Grid Grid.Column="1" 
+                  Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button Name="AddMemberButton" 
+                        Grid.Row="0" 
+                        Height="20" 
+                        Width="60"  
+                        VerticalAlignment="Top" 
+                        Content="Add"
+                        Command="{Binding OnClickAddCommand, Mode=OneWay}"
+                        CommandParameter="{Binding ElementName=MembershipListWindow}">
+                </Button>
+                <Button Name="DeleteMemberButton" 
+                        Grid.Row="1" 
+                        Height="20" 
+                        Width="60" 
+                        VerticalAlignment="Top" 
+                        Content="Delete"
+                        Command="{Binding DeleteMemberCommand}">
+                </Button>
+                <Button Name="ExitApplicationButton" 
+                        Grid.Row="2" 
+                        Height="20" 
+                        Width="60" 
+                        VerticalAlignment="Top" 
+                        Content="Exit"
+                        Command="{Binding CloseWindowCommand, Mode=OneWay}"
+                        CommandParameter="{Binding ElementName=MembershipListWindow}">
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

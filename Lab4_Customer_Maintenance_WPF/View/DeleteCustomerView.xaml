@@ -1,0 +1,18 @@
+﻿<Window x:Class="Lab4_Customer_Maintenance_WPF.View.DeleteCustomerView"
+      x:Name="DeleteCustomerViewWindow"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Lab4_Customer_Maintenance_WPF.View"
+      mc:Ignorable="d" 
+      Height="150" Width="250"
+      Title="Delete?"
+      
+      DataContext="{Binding CustomerMaintenanceViewModel, Source={StaticResource Locator}}">
+    <Grid>
+        <Button Content="Yes" Command="{Binding DeleteYesCommand}" CommandParameter="{Binding ElementName=DeleteCustomerViewWindow}" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="No" Command="{Binding DeleteNoCommand}" CommandParameter="{Binding ElementName=DeleteCustomerViewWindow}" HorizontalAlignment="Left" Margin="157,72,0,0" VerticalAlignment="Top" Width="75"/>
+        <TextBlock HorizontalAlignment="Left" Margin="24,38,0,0" TextWrapping="Wrap" Text="Are you sure you want to delete?" TextAlignment="Center" VerticalAlignment="Top" Height="29" Width="196"/>
+    </Grid>
+</Window>

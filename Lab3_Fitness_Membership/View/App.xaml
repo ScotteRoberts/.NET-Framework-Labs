@@ -1,0 +1,16 @@
+<Application x:Class="Lab3_Fitness_Membership.App" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:local="clr-namespace:Lab3_Fitness_Membership" 
+             StartupUri="MembershipListView.xaml" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             d1p1:Ignorable="d" 
+             xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
+  <Application.Resources>
+    <ResourceDictionary>
+      <vm:ViewModelLocator x:Key="Locator" 
+                           d:IsDataSource="True" 
+                           xmlns:vm="clr-namespace:Lab3_Fitness_Membership.ViewModel" />
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>

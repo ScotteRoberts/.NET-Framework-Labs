@@ -1,0 +1,117 @@
+﻿<Window x:Class="Lab4_Test.View.AddCustomerView"
+        x:Name="AddCustomerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab4_Test.View"
+        mc:Ignorable="d"
+        Title="Add Customer" Height="300" Width="400"
+        DataContext="{Binding Source={StaticResource Locator}, Path=AddCustomerViewModel}">
+    <Grid>
+        <Grid HorizontalAlignment="Left" Height="200" Margin="10,10,0,0" VerticalAlignment="Top" Width="372">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="2.7*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Name="NameLabel"
+                   Grid.Column="0"
+                   Grid.Row="0"
+                   Content="Name:"
+                   VerticalAlignment="Center"/>
+            <TextBox Name="NameTextBox"
+                     Grid.Column="1"
+                     Grid.Row="0"
+                     VerticalAlignment="Center"
+                     Text="{Binding CustomerNameTextBox, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Name="AddressLabel"
+                   Grid.Column="0"
+                   Grid.Row="1"
+                   Content="Address:"
+                   VerticalAlignment="Center"/>
+            <TextBox Name="AddressTextBox"
+                     Grid.Column="1"
+                     Grid.Row="1"
+                     VerticalAlignment="Center"
+                     Text="{Binding CustomerAddressTextBox, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Name="CityLabel"
+                   Grid.Column="0"
+                   Grid.Row="2"
+                   Content="City:"
+                   VerticalAlignment="Center"/>
+            <TextBox Name="CityTextBox"
+                     Grid.Column="1"
+                     Grid.Row="2"
+                     VerticalAlignment="Center"
+                     Text="{Binding CustomerCityTextBox, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Name="StateLabel"
+                   Grid.Column="0"
+                   Grid.Row="3"
+                   Content="State:"
+                   VerticalAlignment="Center"/>
+            <Grid Grid.Column="1" Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Name="StateComboBox"
+                     Grid.Column="0"
+                     VerticalAlignment="Center"
+                     ItemsSource="{Binding StateList}" 
+                     DisplayMemberPath="StateName"
+                     SelectedItem="{Binding SelectedState}"/>
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width=" 1.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Name="ZipLabel"
+                           Grid.Column="0"
+                           Content="Zip:"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"/>
+                    <TextBox Name="ZipTextBox"
+                             Grid.Column="1"
+                             VerticalAlignment="Center"
+                             Text="{Binding CustomerZipTextBox, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="44" Margin="10,215,0,0" VerticalAlignment="Top" Width="372">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Button Name="AcceptButton"
+                    Margin="5,0,5,0"
+                    Grid.Column="0"
+                    Content="Accept"
+                    VerticalAlignment="Center"
+                    Command="{Binding AcceptCloseCommand}"
+                    CommandParameter="{Binding ElementName=AddCustomerWindow}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click" >
+                        <i:InvokeCommandAction Command="{Binding AcceptCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Button Name="CancelButton"
+                    Margin="75,0,5,0"
+                    Grid.Column="3"
+                    Content="Cancel"
+                    VerticalAlignment="Center"
+                    Command="{Binding CancelCommand}"
+                    CommandParameter="{Binding ElementName=AddCustomerWindow}"/>
+        </Grid>
+
+    </Grid>
+</Window>
